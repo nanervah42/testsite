@@ -1,0 +1,18 @@
+python manage.py shell
+from news.models import News, Category
+News.objects.get(title='News 5')
+news5 = _
+news5.title
+news5.category
+news5.category.title
+
+
+cat4 = Category.objects.get(pk=4)
+cat4.news_set.all()    # получение всех связанных с первичной моделью(Category) данных из вторичной модели(News) (<имя связанной модели>_set)
+
+
+News.objects.filter(pk__gt=12)  # получение новостей, где pk>12, иными словами select * from ... where pk>12
+	через запятую можно добавлять иные фильтры (pk__gt=12, title__contains='news'), что равнозначно оператору WHERE ... AND ...  в sql
+
+
+
