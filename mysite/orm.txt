@@ -55,8 +55,30 @@ News.objects.aggregate(diff=Min('views') - Max('views'))    -   можно пр�
 News.objects.aggregate(Sum('views'))    -   сумма всего столбца
 News.objects.aggregate(Avg('views'))    -   среднее всего столбца
 News.objects.aggregate(Count('views'))    -   количество значений всего столбца
+News.objects.aggregate(cnt=Count('views', distinct=True))   -   количество значений всего столбца, но только уникальных
 
 
 ANNOTATE
 (from django.db.models import *) не забыть
 cats = Category.objects.annotate(Count('news'))
+for item in cats:
+    print(item.title, item.news__count) -   выведет название категории и количество новостей в ней
+
+либо можно сделать именованным:
+cats = Category.objects.annotate(cnt=Count('news'))
+for item in cats:
+    print(item.title, item.cnt)
+
+cats = Category.objects.annotate(max_views=Max('news__views'))
+for item in cats:
+    print(item.title, item.max_views)   -   вычисляем максимальное значение столбца views для каждой категории
+
+cats = Category.objects.annotate(sum_views=Sum('news__views'))
+for item in cats:
+    print(item.title, item.sum_views)   -   вычисляем сумму views для каждой категории
+
+cats = Category.objects.annotate(cnt=Count('news')).filter(cnt__gt=0)   -   считаем количество новостей по категориям и отфильтровываем пустые категории
+
+
+VALUES
+news1 = News.objects.values('title', 'views').get(pk=1)  -   получение полей title и news у новости с id=1 в виде словаря
