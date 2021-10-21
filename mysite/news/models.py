@@ -14,6 +14,7 @@ class News(models.Model):
     # если первичная модель(class Category) определена раньше - Category, если позже - 'Category'
     # null - позволяет использовать поле пустым, default - указывает значение категории, при создании записи
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
+    views = models.IntegerField(default=0)
 
     def get_absolute_url(self):
         return reverse('view_news', kwargs={"news_id": self.pk})  # view_news  - из url, которая область имен name=

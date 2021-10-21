@@ -33,3 +33,30 @@ from django.db.models import Q
 
 News.objects.filter(Q(pk__in=[2, 3]) | Q(title__contains='формы 2')) - получаем новости с pk 2 и 3, а также новость, которая содержит "формы 2"
 News.objects.filter(Q(pk__in=[2, 3]) | Q(title__contains='формы 2') & ~Q(pk__gt=4)) - тоже самое и pk не должен быть больше 4
+
+
+СРЕЗЫ:
+News.objects.all()[:3]      -   получение первых трёх записей
+
+
+АГРЕГАТНЫЕ ВЫЧИСЛЕНИЯ:
+from django.db.models import Max, Min или from django.db.models import *
+
+avg, count, max, min и т.д.
+
+News.objects.aggregate(Min('views'), Max('views'))  -   получение максимального и минимального значения из столбца views
+{'views__min': 0, 'views__max': 1000}
+
+News.objects.aggregate(min_views=Min('views'), max_views=Max('views'))  -   тоже самое, но...
+{'min_views': 0, 'max_views': 1000} -   ...можно задать именованные названия аргументов
+
+News.objects.aggregate(diff=Min('views') - Max('views'))    -   можно производить вычисления прям внутри
+
+News.objects.aggregate(Sum('views'))    -   сумма всего столбца
+News.objects.aggregate(Avg('views'))    -   среднее всего столбца
+News.objects.aggregate(Count('views'))    -   количество значений всего столбца
+
+
+ANNOTATE
+(from django.db.models import *) не забыть
+cats = Category.objects.annotate(Count('news'))
