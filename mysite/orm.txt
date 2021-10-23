@@ -82,3 +82,22 @@ cats = Category.objects.annotate(cnt=Count('news')).filter(cnt__gt=0)   -   сч
 
 VALUES
 news1 = News.objects.values('title', 'views').get(pk=1)  -   получение полей title и news у новости с id=1 в виде словаря
+
+
+from django.db import connection    - ---------------------------------------------------
+connection.queries                  - можно посмотреть запросы к базе данных на языке sql
+
+
+F класс:
+news = News.objects.get(pk=1)   -   ---
+news.views = F('views') + 1     -   ---
+news.save()                     -   Добавление к числу views единицы
+
+news = News.objects.filter(content__icontains=F('title'))   -   content должен включать значение, которое есть в title
+
+
+Функции баз данных
+from django.db.models.functions import *
+news = News.objects.annotate(length=Length('title')).all()
+for i in news:
+    print(i.title, i.length)    -   выводим тайтл, длину тайтла в символах (вычисление производится на стороне скл а не питон)
