@@ -101,3 +101,12 @@ from django.db.models.functions import *
 news = News.objects.annotate(length=Length('title')).all()
 for i in news:
     print(i.title, i.length)    -   выводим тайтл, длину тайтла в символах (вычисление производится на стороне скл а не питон)
+
+
+Прямые SQL запросы:
+from news.models import *
+News.objects.raw("SELECT * FROM news_news")
+1)обязательно брать id в селекте
+
+Для защиты от sql инъекций, параметры в запрос необходимо подавать следующим образом
+news = News.objects.raw("SELECT * FROM news_news WHERE title = %s", ['News 5'])

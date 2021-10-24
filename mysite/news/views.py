@@ -16,7 +16,7 @@ class HomeNews(ListView):   # вместо index
         return context
 
     def get_queryset(self):     # правим дефолтный запрос который ~ SELECT все поля FROM таблица, без всяких условий
-        return News.objects.filter(is_published=True)
+        return News.objects.filter(is_published=True).select_related('category')   # select_related для уменьшения sql запросов(тема в дебаг тулз)
 
 
 class ViewNews(DetailView): # вместо view_news
@@ -43,7 +43,7 @@ class CreateNews(CreateView): # вместо add_news
 
 
 def get_category(request, category_id):
-    news = News.objects.filter(category_id=category_id)  # filter возвращает несколько результатов
+    news = News.objects.filter(category_id=category_id).select_related('category')  # filter возвращает несколько результатов
     # categories = Category.objects.all()
     category = Category.objects.get(pk=category_id)  # get работает через filter но возвращает только один результат
     return render(request, 'news/category.html',
