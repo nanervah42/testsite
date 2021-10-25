@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.http import HttpResponse
 from news.models import News, Category
 from .forms import NewsForm
+from django.contrib.auth.mixins import LoginRequiredMixin   # добавить новость могут тока зареганые (есть правки в _nav)
 
 class HomeNews(ListView):   # вместо index
     model = News        # определяем модель откуда беруться все данные
@@ -26,7 +27,7 @@ class ViewNews(DetailView): # вместо view_news
     context_object_name = 'news_item' # по дефолту значение object
 
 
-class CreateNews(CreateView): # вместо add_news
+class CreateNews(LoginRequiredMixin, CreateView): # вместо add_news
     form_class = NewsForm   # форма из forms.py
     template_name = 'news/add_news.html'
     #т.к. в models есть get_absolute_url - джанго автоматом возвращает на этот урл, после создания новости
