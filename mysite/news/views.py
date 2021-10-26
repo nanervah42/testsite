@@ -20,6 +20,7 @@ class HomeNews(ListView):   # вместо index
     template_name = 'news/index.html'   # переопределяем дефолтное название шаблона
     context_object_name = 'news'        # переопределяем дефолтное название объекта
     # extra_context = {'title': 'Главная'}    # желательно использовать только для статичных данных
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):  # ...для динамичных данных
         context = super().get_context_data(**kwargs)            # получаем контекст, который уже есть
