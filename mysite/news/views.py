@@ -5,6 +5,26 @@ from news.models import News, Category
 from .forms import NewsForm
 from django.contrib.auth.mixins import LoginRequiredMixin   # добавить новость могут тока зареганые (есть правки в _nav)
 from django.core.paginator import Paginator
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('login')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'news/register.html', {'form': form})
+
+
+def login(request):
+    return render(request, 'news/login.html')
 
 
 def test(request):
@@ -18,7 +38,7 @@ def test(request):
 class HomeNews(ListView):   # вместо index
     model = News        # определяем модель откуда беруться все данные
     template_name = 'news/index.html'   # переопределяем дефолтное название шаблона
-    context_object_name = 'news'        # переопределяем дефолтное название объекта
+    context_object_name = 'news'        # переопределяемn дефолтное название объекта
     # extra_context = {'title': 'Главная'}    # желательно использовать только для статичных данных
 
     def get_context_data(self, *, object_list=None, **kwargs):  # ...для динамичных данных
@@ -79,3 +99,5 @@ def get_category(request, category_id):
 #     else:
 #         form = NewsForm()
 #     return render(request, 'news/add_news.html', {'form': form})
+
+

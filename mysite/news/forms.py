@@ -3,6 +3,7 @@ from .models import Category
 from .models import News
 import re
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
 
 # Для формы не связанной с моделью:
 # class NewsForm(forms.Form):

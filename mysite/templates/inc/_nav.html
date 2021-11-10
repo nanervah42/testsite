@@ -14,6 +14,11 @@
                 {% endif %}
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/admin/" target="_blank">Админка</a></li>
             </ul>
+
+            <span class="navbar-text">
+                <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
+            </span>
+
         </div>
     </div>
 </nav>
