@@ -145,3 +145,10 @@ MEDIA_URL = '/media/'
 
 
 INTERNAL_IPS = ['127.0.0.1']
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USER = 'nanervah42@yandex.ru'
+EMAIL_HOST_PASSWORD = '42Staskem43'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False

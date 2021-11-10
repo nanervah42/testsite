@@ -3,7 +3,8 @@ from .views import *
 
 urlpatterns = [
     path('register', register, name='register'),
-    path('login', login, name='login'),
+    path('login', user_login, name='login'),
+    path('logout', user_logout, name='logout'),
     # когда джанго встречает такую строку(первый параметр), то срабатывает функция из views, указанная во втором параметре
     # path('', index, name='home'),
     path('', HomeNews.as_view(), name='home'),
