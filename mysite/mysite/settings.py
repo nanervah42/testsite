@@ -161,3 +161,10 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 CAPTCHA_LETTER_ROTATION = False
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 CAPTCHA_NOISE_FUNCTIONS = False
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': BASE_DIR / 'django_cache',
+    }
+}
