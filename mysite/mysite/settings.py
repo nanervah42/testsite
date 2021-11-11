@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'ckeditor',
+    'ckeditor_uploader',
+    'captcha',
     'news.apps.NewsConfig',
 ]
 
@@ -152,3 +155,9 @@ EMAIL_USER = 'nanervah42@yandex.ru'
 EMAIL_HOST_PASSWORD = '42Staskem43'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = False
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CAPTCHA_LETTER_ROTATION = False
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_NOISE_FUNCTIONS = False
